@@ -24,8 +24,8 @@ div.tooltip {
 <script>
 
 // set dimensions of svg canvas
-var width = 960,
-	height = 500;
+var width = 3000,
+	height = 1250;
 
 // define scale to sort countries by total days visited
 var color = d3.scale.threshold()
@@ -41,6 +41,14 @@ var color = d3.scale.threshold()
 				"#253494",
 				"#081d58"
 			]);
+
+// random grey color generator 
+function getRandomColor() {
+    var i = Math.floor((Math.random() * 4));
+	var greyscale = ['#f0f0f0', '#d9d9d9', '#bdbdbd', '#969696'];
+	return greyscale[i];
+}
+
 
 // append svg canvas to html "body" with declared dimensions
 var svg = d3.select("body")
@@ -103,13 +111,15 @@ d3.csv("countries.csv", function(data) {
     	.enter()
       	.append("path")
       	.attr("d", geopath)
+      	// .style("stroke", "#2A2C39")
+      	// .style("stroke-width", 0.25)
       	.style("fill", function(d){
       		var travel_days = d.properties.days;
 
       		if (travel_days) {
       			return color(travel_days);
       		} else {
-      			return "#ddd";
+      			return getRandomColor();
       		} 
       		})
       	// .style("stroke", function(d){
@@ -146,14 +156,14 @@ d3.csv("countries.csv", function(data) {
 	 //    .attr("transform", function(d) { return "translate(" + projection([d.lon, d.lat]) + ")"; });
 
 	 //    city.append("circle")
-	 //    .attr("r", 3)
-	 //    .style("fill", "lime")
+	 //    .attr("r", 2)
+	 //    .style("fill", "red")
 	 //    .style("opacity", 0.75);
 
 	 //    city.append("text")
 	 //    .attr("x", 5)
-	 //    // .attr("fill", "orange")
-	 //    .text(function(d) { return d.name; });
+	 //    .attr("fill", "red");
+	 //    // .text(function(d) { return d.name; });
 
 
 		// }); 	

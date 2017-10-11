@@ -14,12 +14,12 @@
 // 3. [C] color according to length of time visited 					
 // 4. [C] label: country name, days stayed (unless US or China)
 // 5. [C] cities visited 											
-// 6. [N] labeling for cities: name, province (if applicable), country
-// 6.5 Toggle city layer 
-// 7. [N] styling ???
+// 6. [N] labeling for cities: name, province (if applicable), country *
+// 6.5 Toggle city layer *
+// 7. [N] styling ??? *
 // 8. zoom in/zoom out 
-// 9. legend: list of countries, days stayed
-// 10. legend: bar for range of days stayed: 1, 2, 4, 8, 16, 
+// 9. legend: list of countries, days stayed *
+// 10. legend: bar for range of days stayed: 1, 2, 4, 8, 16, *
 // 11. timeline - when visited
 
 
