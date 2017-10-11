@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+/* CSS goes here. */
+/*
+path {
+  stroke:white;
+  stroke-width: 1px;
+}*/
+
+div.tooltip {   
+  position: absolute;           
+  /*text-align: center;           */
+  width: 140px;                  
+  height: 35px;                 
+  padding: 2px;             
+  font-size: 10px;     
+  background: #FFFFE0;
+  border: 1px;      
+  /*border-radius: 8px;           */
+  pointer-events: none;         
+}
+
+</style>
+<body>
+<!-- <script src="d3v4/d3.min.js" charset="utf-8"></script> -->
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/topojson.v0.min.js"></script>
+<script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
+
+<script>
+
+// set dimensions of svg canvas
+var width = 960,
+	height = 500;
+
+// define scale to sort countries by total days visited
+var color = d3.scale.threshold()
+	.domain([1, 2, 4, 8, 16, 32, 64, 1024, 2048]) // for future travel: 128, 256, 512,
+	.range([
+				"#ffffd9",
+				"#edf8b1",
+				"#c7e9b4",
+				"#7fcdbb",
+				"#41b6c4",
+				"#1d91c0",
+				"#225ea8",
+				"#253494",
+				"#081d58"
+			]);
+
+// append svg canvas to html "body" with declared dimensions
+var svg = d3.select("body")
+	.append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// labels for mouseover countries
+var div = d3.select("body").append("div")   
+  .attr("class", "tooltip")               
+  .style("opacity", 0);
+
+// assign/append g unit to svg canvas
+// var g = svg.append("g");
+
+// assign projection and scaling to display clearly
+var projection = d3.geo.mercator()
+    .scale(150)
+    .translate([width / 2, height / 2])
+    .precision(.1);
+
+// tweak projection to d3 path formula for drawing map correctly
+var geopath = d3.geo.path()
+    .projection(projection);
+
+d3.csv("countries.csv", function(data) {
+
+	// grab topojson file, throw error if not accessed/found
+	d3.json("world2.json", function(error, world) {
+	  if (error) return console.error(error);
+	  	
+	  	// pair contents of countries.csv with countries in map to add value(s)
+		for (var i = 0; i < data.length; i++) {
+			var dataCountry = data[i].name;
+			var dataDays = data[i].days;
+
+			for (var j = 0; j < world.objects.countries.geometries.length; j++) {
+				var mapCountry = world.objects.countries.geometries[j].properties.name;
+				var mapDays = world.objects.countries.geometries;
+
+				// add days visited value to countries as a topojson object
+				if (dataCountry == mapCountry) {
+					world.objects.countries.geometries[j].properties.days = dataDays;
+					break;
+				}
+				// add 0 value for countries that have not been visited
+				if (mapDays[j].properties.days > 1) {
+					// console.log(mapCountry + ": " + mapDays[j].properties.days);
+				} else {
+					mapDays[j].properties.days = 0;
+				}
+				
+			}
+
+		}
+
+		console.log(world);
+
+		svg.selectAll("path")
+		// .data(topojson.feature(world, world.objects.countries.features))
+      	.data(topojson.object(world, world.objects.countries).geometries)
+    	.enter()
+      	.append("path")
+      	.attr("d", geopath)
+      	.style("fill", function(d){
+      		var travel_days = d.properties.days;
+
+      		if (travel_days) {
+      			return color(travel_days);
+      		} else {
+      			return "#ddd";
+      		} 
+      		})
+      	// .style("stroke", function(d){
+      	// 	var travel_days = d.properties.days;
+
+      	// 	if (travel_days) {
+      	// 		return "black";
+      	// 	} 
+      	// 	})
+      	//Adding mouseevents
+		  .on("mouseover", function(d) {
+		    d3.select(this).transition().duration(300).style("opacity", 1);
+		    div.transition().duration(300)
+		    .style("opacity", 1)
+		    div.text("Country: " + d.properties.name + ", Days: " + d.properties.days)
+		    .style("left", (d3.event.pageX) + "px")
+		    .style("top", (d3.event.pageY -30) + "px");
+		  })
+		  .on("mouseout", function() {
+		    d3.select(this)
+		    .transition().duration(300)
+		    .style("opacity", 0.8);
+		    div.transition().duration(300)
+		    .style("opacity", 0);
+		  });
+    
+	 //    d3.csv("cities.csv", function(error, data) {
+	 //    var city = svg.selectAll("g.city")
+	 //    .data(data)
+	 //    .enter()
+	 //    .append("g")
+	 //    .attr("class", "city")
+	 //    .attr("transform", function(d) { return "translate(" + projection([d.lon, d.lat]) + ")"; });
+
+	 //    city.append("circle")
+	 //    .attr("r", 3)
+	 //    .style("fill", "lime")
+	 //    .style("opacity", 0.75);
+
+	 //    city.append("text")
+	 //    .attr("x", 5)
+	 //    // .attr("fill", "orange")
+	 //    .text(function(d) { return d.name; });
+
+
+		// }); 	
+
+	});
+});
+
+
+
+  	// draw path of map shapes from topojson file as "path" shapes, inform shape with projection 'geopath'
+
+
+// draw cities
+
+
+
+
+
+
+// d3.json("world.json", function(error, world) {
+//   if (error) return console.error(error);
+//   console.log(world.features);
+// 		g.selectAll('path')
+// 		  .data(world.features)
+// 		  .enter()
+// 		  .append('path')
+// // 		  .attr('fill', '"#ccc')
+// ",// 		  // .attr("fill", function(d) { ""#ddc"//",{ if (d.properties.NAME === 'United States') {return ""#YYY"}
+// ",// 		  // return d.properties.NAME in ['United States']//=== "Australia" || d.properties.NAME === "United States" ? ""#ddc": ",""#000"; ",
+// 			// })
+// 		  .attr('d', geoPath);
+
+// });
+
+
+
+</script>

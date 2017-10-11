@@ -1,0 +1,55 @@
+name,provincial_region,country,lat,lon
+New York,New York,USA,40.730610,-73.935242
+Philadelphia,Pennsylvania,USA,39.952583,-75.165222
+Princeton,New Jersey,USA,40.344551,-74.654682
+San Francisco,California,USA,37.773972,-122.431297
+Honolulu,Hawaii,USA,21.315603,-157.858093
+Juneau,Alaska,USA,58.3019444,-134.4197221
+San Diego,California,USA,32.7157380,-117.1610838
+Marathon,Florida,USA,24.7260260,-81.0446262
+Boston,Massachusetts,USA,42.3600825,-71.0588801
+Corolla,North Carolina,USA,36.3802879,-75.8307777
+Chicago,Illinois,USA,41.8781136,-87.6297982
+Austin,Texas,USA,30.2671530,-97.7430608
+Beijing,Beijing,China,39.913818,116.363625
+Shanghai,Shanghai,China,31.267401,121.522179
+Jinan,Shandong,China,36.651200,117.120095
+Qufu,Shandong,China,35.580996,116.986503
+Hangzhou,Zhejiang,China,30.274084,120.15507
+Shenzhen,Guangdong,China,22.543096,114.057865
+Guangzhou,Guangdong,China,23.129110,113.264385
+Chengdu,Sichuan,China,30.572815,104.066801
+Leshan,Sichuan,China,29.552115,103.765678
+Emeishan,Sichuan,China,29.516007,103.334737
+Suzhou,Jiangsu,China,31.139071,120.645134
+Nanjing,Jiangsu,China,32.060255,118.796877
+Kaifeng,Henan,China,34.797281,114.307582
+Luoyang,Henan,China,34.620202,112.453926
+Xi'an,Shaanxi,China,34.341568,108.940178
+Lanzhou,Gansu,China,36.061089,103.834304
+Jiayuguan,Gansu,China,39.803695,98.224191
+Dunhuang,Gansu,China,40.142128,94.661966
+Turpan,Xinjiang,China,42.951303,89.189752
+Urumqi,Xinjiang,China,43.825592,87.616852
+Kashgar,Xinjiang,China,37.882988,77.413834
+Hong Kong,Hong Kong SAR,China,22.286394,114.149139
+Seoul,Seoul,South Korea,37.566535,126.977969
+Danang,Da Nang,Vietnam,16.054406,108.202166
+Bangkok,Bangkok,Thailand,13.7563309,100.5017651
+Chiangmai,Chiangmai,Thailand,18.7060641,98.9817163
+Phuket,Phuket,Thailand,7.9519331,98.3380884
+Siem Reap,Siem Reap Province,Cambodia,13.3670968,103.8448134
+Phnom Penh,Phnom Penh,Cambodia,11.5448729,104.8921668
+Yangon,Yangon,Myanmar (Burma),16.8660694,96.1951320
+Bagan,Mandalay Region,Myanmar (Burma),21.1717271,94.8585458
+Inle Lake,Inle,Myanmar (Burma),20.5862914,96.9101806
+Mandalay,Mandalay Region,Myanmar (Burma),21.9588282,96.0891032
+London,London,UK,51.5073509,-0.1277583
+Dublin,NA,Ireland,53.3498053,-6.2603097
+Amsterdam,NA,Netherlands,52.3702157,4.8951679
+Prague,NA,Czech Republic,50.0755381,14.437800
+Paris,NA,France,48.8566140,2.3522219
+Rome,NA,Italy,41.9027835,12.4963655
+Barcelona,Catalonia,Spain,41.3850639,2.1734035
+Tel Aviv,NA,Israel,32.0852999,34.7817676
+Doha,NA,Qatar,25.2854473,51.5310398
