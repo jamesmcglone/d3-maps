@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+
 <style>
+
 
 div.tooltip {   
   position: absolute;           
@@ -15,23 +17,26 @@ div.tooltip {
   pointer-events: none;         
 }
 
+
+
 </style>
+
 <body>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="//d3js.org/topojson.v0.min.js"></script>
-<script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
+<!-- <script src="//d3js.org/d3.geo.projection.v0.min.js"></script> -->
 
 <script>
 
 // set dimensions of svg canvas
-var width = 3000,
-	height = 1250;
+var width = 1100,
+	height = 750;
 
 // define scale to sort countries by total days visited
 var color = d3.scale.threshold()
-	.domain([1, 2, 4, 8, 16, 32, 64, 1024, 2048]) // for future travel: 128, 256, 512,
+	.domain([1, 2, 4, 8, 16, 32, 1024, 2048]) // for future travel:  64, 128, 256, 512,
 	.range([
-				"#ffffd9",
+				// "#ffffd9", //<-- too light for small regions with a white background
 				"#edf8b1",
 				"#c7e9b4",
 				"#7fcdbb",
@@ -45,10 +50,10 @@ var color = d3.scale.threshold()
 // random grey color generator 
 function getRandomColor() {
     var i = Math.floor((Math.random() * 4));
-	var greyscale = ['#f0f0f0', '#d9d9d9', '#bdbdbd', '#969696'];
+    
+	var greyscale = ['#DCDCDC','#D3D3D3','#f0f0f0', '#d9d9d9'];
 	return greyscale[i];
 }
-
 
 // append svg canvas to html "body" with declared dimensions
 var svg = d3.select("body")
@@ -66,13 +71,17 @@ var div = d3.select("body").append("div")
 
 // assign projection and scaling to display clearly
 var projection = d3.geo.mercator()
-    .scale(150)
+    .scale(175)
     .translate([width / 2, height / 2])
     .precision(.1);
 
 // tweak projection to d3 path formula for drawing map correctly
 var geopath = d3.geo.path()
     .projection(projection);
+
+// graticula
+var graticule = d3.geo.graticule()
+	.step([10, 10]);
 
 d3.csv("countries.csv", function(data) {
 
@@ -106,20 +115,21 @@ d3.csv("countries.csv", function(data) {
 		console.log(world);
 
 		svg.selectAll("path")
-		// .data(topojson.feature(world, world.objects.countries.features))
+		//topojson v1 --> .data(topojson.feature(world, world.objects.countries.features))
       	.data(topojson.object(world, world.objects.countries).geometries)
     	.enter()
       	.append("path")
       	.attr("d", geopath)
-      	// .style("stroke", "#2A2C39")
-      	// .style("stroke-width", 0.25)
+      	.style("stroke", "white")//"#2A2C39")
+      	.style("stroke-width", 0.1)
       	.style("fill", function(d){
       		var travel_days = d.properties.days;
 
       		if (travel_days) {
       			return color(travel_days);
       		} else {
-      			return getRandomColor();
+      			return "#d0a888"; 
+      			// other coloring options --> //#e2b279"; //#e5d5b6"; //getRandomColor();
       		} 
       		})
       	// .style("stroke", function(d){
@@ -146,27 +156,27 @@ d3.csv("countries.csv", function(data) {
 		    div.transition().duration(300)
 		    .style("opacity", 0);
 		  });
-    
-	 //    d3.csv("cities.csv", function(error, data) {
-	 //    var city = svg.selectAll("g.city")
-	 //    .data(data)
-	 //    .enter()
-	 //    .append("g")
-	 //    .attr("class", "city")
-	 //    .attr("transform", function(d) { return "translate(" + projection([d.lon, d.lat]) + ")"; });
 
-	 //    city.append("circle")
-	 //    .attr("r", 2)
-	 //    .style("fill", "red")
-	 //    .style("opacity", 0.75);
+	    d3.csv("cities.csv", function(error, data) {
+	    var city = svg.selectAll("g.city")
+	    .data(data)
+	    .enter()
+	    .append("g")
+	    .attr("class", "city")
+	    .attr("transform", function(d) { return "translate(" + projection([d.lon, d.lat]) + ")"; });
 
-	 //    city.append("text")
-	 //    .attr("x", 5)
-	 //    .attr("fill", "red");
-	 //    // .text(function(d) { return d.name; });
+	    city.append("circle")
+	    .attr("r", 2)
+	    .style("fill", "red")
+	    .style("opacity", 0.75);
+
+	    city.append("text")
+	    .attr("x", 5)
+	    .attr("fill", "gold");
+	    // .text(function(d) { return d.name; });
 
 
-		// }); 	
+		}); 	
 
 	});
 });
