@@ -24,7 +24,7 @@ New Haven,Connecticut,USA,41.310726,-72.929916
 New London,Connecticut,USA,41.355423,-72.102760
 Providence,Rhode Island,USA,41.826820,-71.402931
 Atlantic City,New Jersey,USA,39.364283,-74.422927
-Newark,Delaware,USA,39.683723,‎-75.749657
+Newark,Delaware,USA,39.683723,-75.749657
 Baltimore,Maryland,USA,39.2903848,-76.6121893
 Annapolis,Maryland,USA,38.9784453,-76.4921829
 Montauk,New	York,USA,41.0359353,-71.9545146
@@ -35,8 +35,8 @@ Killington,Vermont,USA,43.6775677,-72.7798247
 Breckenridge,Colorado,USA,39.4816537,-106.0383518
 Phoenix,Arizona,USA,33.448376,-112.074036
 Vancouver,British Columbia,Canada,49.24966,-123.11934
+Niagra,Ontario,Canada,43.0895577,-79.0849436
 Mont-Tremblant,Quebec,Canada,46.118462,-74.596185
-Niagra,Ontario,Canada,‎43.092461,-79.047150
 Boston,Massachusetts,USA,42.3600825,-71.0588801
 Worcester,Massachusetts,USA,42.407211,-71.382439
 Corolla,North Carolina,USA,36.3802879,-75.8307777
@@ -96,5 +96,5 @@ Vatican City,Rome,Italy,41.9021788,12.4536007
 Barcelona,Catalonia,Spain,41.3850639,2.1734035
 Tel Aviv,Tel Aviv-Yafo,Israel,32.0852999,34.7817676
 Doha,Doha,Qatar,25.2854473,51.5310398
+Saint George,Bermuda,Bermuda,32.382839,-64.675912
 Oranjestad,Aruba,Aruba,12.510052,-70.009354
-St. Georges,Bermuda,Bermuda,32.366859,‎-64.683647

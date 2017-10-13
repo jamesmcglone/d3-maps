@@ -6,24 +6,32 @@
 
 div.tooltip {   
   position: absolute;           
-  /*text-align: center;           */
-  width: 140px;                  
-  height: 35px;                 
+  text-align: center;   
+  box-shadow: 0 0 5px #999999;        
+  width: 150px;                  
+  height: 20px;                 
   padding: 2px;             
   font-size: 10px;     
-  background: #FFFFE0;
+  background: lightgreen; /*#FFFFE0; */
   border: 1px;      
-  /*border-radius: 8px;           */
+  border-radius: 2px;           
   pointer-events: none;         
 }
 
+#countries .active {
+  fill: orange;
+}
 
+#country-borders {
+  stroke: #fff;
+  stroke-width: 0.1px;
+}
 
 </style>
 
 <body>
 <script src="//d3js.org/d3.v3.min.js"></script>
-<script src="//d3js.org/topojson.v0.min.js"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
 <!-- <script src="//d3js.org/d3.geo.projection.v0.min.js"></script> -->
 
 <script>
@@ -50,9 +58,18 @@ var color = d3.scale.threshold()
 // random grey color generator 
 function getRandomColor() {
     var i = Math.floor((Math.random() * 4));
-    
 	var greyscale = ['#DCDCDC','#D3D3D3','#f0f0f0', '#d9d9d9'];
 	return greyscale[i];
+}
+
+function getTimeScale(daysincountry) {
+
+	if (daysincountry >= 365) {
+		return Math.floor(daysincountry/365) + "+ years";
+	} else {
+		return daysincountry + " days";
+	}
+
 }
 
 // append svg canvas to html "body" with declared dimensions
@@ -63,11 +80,11 @@ var svg = d3.select("body")
 
 // labels for mouseover countries
 var div = d3.select("body").append("div")   
-  .attr("class", "tooltip")               
-  .style("opacity", 0);
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
 
 // assign/append g unit to svg canvas
-// var g = svg.append("g");
+var g = svg.append("g");
 
 // assign projection and scaling to display clearly
 var projection = d3.geo.mercator()
@@ -78,10 +95,6 @@ var projection = d3.geo.mercator()
 // tweak projection to d3 path formula for drawing map correctly
 var geopath = d3.geo.path()
     .projection(projection);
-
-// graticula
-var graticule = d3.geo.graticule()
-	.step([10, 10]);
 
 d3.csv("countries.csv", function(data) {
 
@@ -114,14 +127,16 @@ d3.csv("countries.csv", function(data) {
 
 		console.log(world);
 
-		svg.selectAll("path")
-		//topojson v1 --> .data(topojson.feature(world, world.objects.countries.features))
-      	.data(topojson.object(world, world.objects.countries).geometries)
+		g.append("g")
+		.attr("id", "countries")
+		.selectAll("path")
+      	.data(topojson.feature(world, world.objects.countries).features)
+      	// topojson v0 --> topojson.object(world, world.objects.countries).geometries)
     	.enter()
       	.append("path")
       	.attr("d", geopath)
-      	.style("stroke", "white")//"#2A2C39")
-      	.style("stroke-width", 0.1)
+      	// .style("stroke", "white") //"#2A2C39")
+      	// .style("stroke-width", 0.1)
       	.style("fill", function(d){
       		var travel_days = d.properties.days;
 
@@ -131,53 +146,37 @@ d3.csv("countries.csv", function(data) {
       			return "#d0a888"; 
       			// other coloring options --> //#e2b279"; //#e5d5b6"; //getRandomColor();
       		} 
-      		})
-      	// .style("stroke", function(d){
-      	// 	var travel_days = d.properties.days;
-
-      	// 	if (travel_days) {
-      	// 		return "black";
-      	// 	} 
-      	// 	})
-
-      	//Adding mouseevents
-		  .on("mouseover", function(d) {
-		    d3.select(this).transition().duration(300).style("opacity", 1);
-		    div.transition().duration(300)
-		    .style("opacity", 1)
-		    div.text("Country: " + d.properties.name + ", Days: " + d.properties.days)
-		    .style("left", (d3.event.pageX) + "px")
-		    .style("top", (d3.event.pageY -30) + "px");
-		  })
-		  .on("mouseout", function() {
-		    d3.select(this)
-		    .transition().duration(300)
-		    .style("opacity", 0.8);
-		    div.transition().duration(300)
-		    .style("opacity", 0);
-		  });
+      	})
+      	.on("mouseover", function(d) {		//Adding mouse events
+            div.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+            div.text(d.properties.name + ": " + getTimeScale(d.properties.days))	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");	
+        })					
+        .on("mouseout", function(d) {		
+            div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+        });
 
 	    d3.csv("cities.csv", function(error, data) {
-	    var city = svg.selectAll("g.city")
-	    .data(data)
-	    .enter()
-	    .append("g")
-	    .attr("class", "city")
-	    .attr("transform", function(d) { return "translate(" + projection([d.lon, d.lat]) + ")"; });
-
-	    city.append("circle")
-	    .attr("r", 2)
-	    .style("fill", "red")
-	    .style("opacity", 0.75);
-
-	    city.append("text")
-	    .attr("x", 5)
-	    .attr("fill", "gold");
-	    // .text(function(d) { return d.name; });
-
+	        g.selectAll("circle")
+	           .data(data)
+	           .enter()
+	           .append("circle")
+	           .attr("cx", function(d) { //error in console about cx, cx and expected length: 'NaN'
+	                   return projection([+d.lon, +d.lat])[0];
+	           })
+	           .attr("cy", function(d) {
+	                   return projection([+d.lon, +d.lat])[1];
+	           })
+	           .attr("r", 2)
+	           .style("fill", "red")
+	           .style("opacity", 0.75);
 
 		}); 	
-
 	});
 });
 

@@ -12,8 +12,8 @@
 // 1. [C] display map 													
 // 2. [C] identify countries visited 									
 // 3. [C] color according to length of time visited 			
-// 4. [P] mouseover label: country name, duration: # days || # years *	
-// 5. [C] cities visited error in console	- something weird with Bermuda...	bug for later										
+// 4. [C] mouseover label: country name, duration: # days || # years *	
+// 5. [C] cities visited error in console + bermuda problem										
 // 6. [] Toggle city layer *
 // 7. [] mouseover labeling for cities: name, province (if applicable), country *
 // 8. [] legend: list of countries visited  w/ colored square + bar for range of duration
