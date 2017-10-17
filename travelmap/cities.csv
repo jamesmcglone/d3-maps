@@ -43,8 +43,8 @@ Corolla,North Carolina,USA,36.3802879,-75.8307777
 Chicago,Illinois,USA,41.8781136,-87.6297982
 Austin,Texas,USA,30.2671530,-97.7430608
 Washington,D.C.,USA,38.9001118,-77.0163653
-Beijing,Beijing,China,39.913818,116.363625
-Shanghai,Shanghai,China,31.267401,121.522179
+Beijing,Beijing Shi,China,39.913818,116.363625
+Shanghai,Shanghai Shi,China,31.267401,121.522179
 Jinan,Shandong,China,36.651200,117.120095
 Qufu,Shandong,China,35.580996,116.986503
 Hangzhou,Zhejiang,China,30.274084,120.15507
@@ -73,7 +73,7 @@ Hoi An,Quang Nam,Vietnam,15.880058,108.338047
 Bangkok,Bangkok,Thailand,13.7563309,100.5017651
 Chiangmai,Chiangmai,Thailand,18.7060641,98.9817163
 Phuket,Phuket,Thailand,7.9519331,98.3380884
-Po Phi Phi,Phuket,Thailand,7.73990,98.77223
+Ko Phi Phi,Phuket,Thailand,7.73990,98.77223
 Siem Reap,Siem Reap Province,Cambodia,13.3670968,103.8448134
 Phnom Penh,Phnom Penh,Cambodia,11.5448729,104.8921668
 Yangon,Yangon,Myanmar (Burma),16.8660694,96.1951320
