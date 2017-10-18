@@ -157,7 +157,7 @@ d3.csv("countries.csv", function(data) {
             d3.select(this).transition().duration(300)
 	            .style("opacity", 1)
 	            .style("stroke", "#fff")
-	            .style("stroke-width", 0.2);
+	            .style("stroke-width", 0.3);
             div.transition()		
                 .duration(200)		
                 .style("opacity", .9)
@@ -169,7 +169,7 @@ d3.csv("countries.csv", function(data) {
         .on("mouseout", function(d) {		
             d3.select(this)
 			    .transition().duration(300)
-			    .style("stroke-width", 0.01)
+			    .style("stroke-width", 0.1)
 			    .style("opacity", 0.8);
             div.transition()		
                 .duration(500)		
@@ -240,9 +240,8 @@ d3.csv("countries.csv", function(data) {
 				  newOpacity = active ? 0 : 1;
 				// Hide or show the elements
 				d3.selectAll("#cityDisplay").style("opacity", newOpacity);
-				// d3.select("#blueAxis").style("opacity", newOpacity);
 				// Update whether or not the elements are active
-				
+
 				cityDisplay.active = active;
 			})
 			.text("[City Display]");
@@ -348,8 +347,8 @@ function getRandomColor() {
 	return greyscale[i];
 }
 
+// return string time spend in days or years
 function getTimeScale(daysincountry) {
-
 	if (daysincountry >= 365) {
 		return Math.floor(daysincountry/365) + "+ years";
 	} else {
