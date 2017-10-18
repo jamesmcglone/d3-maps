@@ -365,10 +365,14 @@ function clicked(d) {
     x = centroid[0];
     y = centroid[1];
     // for k, adjust scale for larger countries
-    if (d.properties.name == "United States" || d.properties.name == "Canada" || d.properties.name == "Russia") {
+    if (d.properties.name == "Greenland" || d.properties.name == "Canada" || d.properties.name == "Russia") {
     	k = 2;
+    } else if (d.properties.name == "United States" || d.properties.name == "Norway") {
+    	k = 3;
+    } else if (d.properties.name == "China") {
+    	k = 5;
     } else {
-    	k = 4;
+    	k = 6;
     }
     centered = d;
   } else {
